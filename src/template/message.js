@@ -28,7 +28,6 @@ async function getMessage(isPost = false) {
             : repoName;
         const actor_name = `\`${workflow.head_commit.author.name}\``;
         const event = `\`${workflow.event.toUpperCase()}\``;
-        const commitMessage = `\`${workflow.head_commit.message}\``;
         const status = `\`${getCurrentWorkflowConclusion(job.steps, isPost).toUpperCase()}\``;
         const commitUrl = `${repoUrl}/commit/${workflow.head_sha}`;
         const workflowUrl = `${repoUrl}/actions/runs/${workflow.id}`;
@@ -78,7 +77,7 @@ async function getMessage(isPost = false) {
 
         // Show Commit Message
         if (core.getInput('show-commit-message', { required: false }).toLowerCase() === 'true') {
-            facts.push(new Fact("Commit Message:", commitMessage));
+            facts.push(new Fact("Commit Message:", workflow.head_commit.message));
         }
 
         section.facts = facts;
