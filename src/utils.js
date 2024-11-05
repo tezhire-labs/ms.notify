@@ -45,49 +45,17 @@ async function getWorkflowRun(isPost = false) {
     // Fetch details of the current job's steps
     const steps = currentJob.steps;
     const conclusion = getCurrentWorkflowConclusion(steps, isPost);
-    
+
     // console.log("Conclusion:", conclusion);
 
-    // Get previous workflow run
-    const previousRuns = await octokit.rest.actions.listWorkflowRuns({
-      owner: github.context.repo.owner,
-      repo: github.context.repo.repo,
-      workflow_id: workflowRun.data.workflow_id,
-      status: 'completed',
-      per_page: 1
-    });
-
-    let compareBasehead;
-    if (previousRuns.data.workflow_runs.length > 0) {
-      const previousRun = previousRuns.data.workflow_runs[0];
-      compareBasehead = `${previousRun.head_sha}...${workflowRun.data.head_commit.id}`;
-    } else {
-      // Fallback to comparing with parent commit if no previous workflow run exists
-      compareBasehead = `${workflowRun.data.head_commit.parent_id}...${workflowRun.data.head_commit.id}`;
-    }
-
-    // Get commits between the previous workflow run and current run
-    const commits = await octokit.rest.repos.compareCommitsWithBasehead({
-      owner: github.context.repo.owner,
-      repo: github.context.repo.repo,
-      basehead: compareBasehead
-    });
-
-    // Extract commit messages into a list
-    const commitMessages = commits.data.commits.map(commit => commit.commit.message);
-    const totalCommits = commits.data.total_commits;
-
-    // console.log("Number of Commits:", totalCommits);
-    // console.log("Commit Messages:", commitMessages);
+    // Get the current commit message
+    const commitMessage = workflowRun.data.head_commit.message;
 
     return {
       workflow: workflowRun.data,
       conclusion,
       job: currentJob,
-      commits: {
-        total: totalCommits,
-        messages: commitMessages
-      }
+      commitMessage
     };
 
   } catch (error) {

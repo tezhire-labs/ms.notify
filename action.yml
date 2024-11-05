@@ -58,11 +58,6 @@ inputs:
     description: "Show the end time in the notification"
     required: false
     default: "true"
-  show-commit-count:
-    type: boolean
-    description: "Show the number of commits in the notification"
-    required: false
-    default: "true"
   show-commit-messages:
     type: boolean
     description: "Show the commit messages in the notification"

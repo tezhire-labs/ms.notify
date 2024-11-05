@@ -10,7 +10,7 @@ async function getMessage(isPost = false) {
         const {
             workflow,
             job,
-            commits
+            commitMessage
         } = await getWorkflowRun(isPost);
 
         if (!workflow || !workflow.head_repository) {
@@ -24,8 +24,8 @@ async function getMessage(isPost = false) {
         webhookBody.sections.push(section);
 
         const repoName = workflow.head_repository.full_name;
-        const repoNameDisplay = core.getInput('uppercase-repo-name', { required: false }).toLowerCase() === 'true' 
-            ? repoName.toUpperCase() 
+        const repoNameDisplay = core.getInput('uppercase-repo-name', { required: false }).toLowerCase() === 'true'
+            ? repoName.toUpperCase()
             : repoName;
         const actor_name = `\`${workflow.head_commit.author.name}\``;
         const event = `\`${workflow.event.toUpperCase()}\``;
@@ -39,7 +39,6 @@ async function getMessage(isPost = false) {
         section.activityImage = workflow.actor.avatar_url;
 
         const { startDate, endDate } = convertToTimeZones(job);
-        const commitMessages = commits.messages.join('\n');
         const facts = [];
 
         // Facts for the notification card
@@ -78,13 +77,9 @@ async function getMessage(isPost = false) {
             facts.push(new Fact("End Time:", endDate));
         }
 
-        // Handle commit information
-        if (core.getInput('show-commit-messages', { required: false }).toLowerCase() === 'true' && core.getInput('show-commit-count', { required: false }).toLowerCase() === 'true') {
-            facts.push(new Fact(`Commits (${commits.total}):`, commitMessages));
-        } else if (core.getInput('show-commit-messages', { required: false }).toLowerCase() === 'true' && core.getInput('show-commit-count', { required: false }).toLowerCase() === 'false') {
-            facts.push(new Fact(`Commit Messages:`, commitMessages));
-        } else if (core.getInput('show-commit-messages', { required: false }).toLowerCase() === 'false' && core.getInput('show-commit-count', { required: false }).toLowerCase() === 'true') {
-            facts.push(new Fact(`Number of Commits:`, `\`${commits.total}\``));
+        // Show Commit Message
+        if (core.getInput('show-commit-messages', { required: false }).toLowerCase() === 'true') {
+            facts.push(new Fact("Commit Message:", commitMessage));
         }
 
         section.facts = facts;
