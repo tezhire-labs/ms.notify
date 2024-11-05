@@ -1,0 +1,110 @@
+name: Microsoft Teams Notifications
+author: Satya Tulasi Jalandhar C H
+description: Notify your Teams channel with a beautiful, comprehensive teams notification with each job execution
+
+inputs:
+  github-token:
+    type: string
+    description: "GitHub token used for API authentication. Use secrets.GITHUB_TOKEN"
+    required: true
+  webhook-uri:
+    type: string
+    description: "Microsoft Teams webhook URL. Create this in Teams channel settings under Incoming Webhooks"
+    required: true
+  debug:
+    description: "Enable debug logging of webhook body"
+    required: true
+    default: "false"
+  main-message:
+    type: string
+    description: "Main message to be displayed in Teams notification"
+    required: true
+  post-message:
+    type: string
+    description: "Post message to be displayed in Teams notification"
+    required: true
+  show-author:
+    type: boolean
+    description: "Show the author information in the notification"
+    required: false
+    default: "true"
+  show-event:
+    type: boolean
+    description: "Show the event type in the notification"
+    required: false
+    default: "true"
+  show-status:
+    type: boolean
+    description: "Show the status in the notification"
+    required: false
+    default: "true"
+  show-branch:
+    type: boolean
+    description: "Show the branch information in the notification"
+    required: false
+    default: "true"
+  show-job:
+    type: boolean
+    description: "Show the job information in the notification"
+    required: false
+    default: "true"
+  show-start-time:
+    type: boolean
+    description: "Show the start time in the notification"
+    required: false
+    default: "true"
+  show-end-time:
+    type: boolean
+    description: "Show the end time in the notification"
+    required: false
+    default: "true"
+  show-commit-count:
+    type: boolean
+    description: "Show the number of commits in the notification"
+    required: false
+    default: "true"
+  show-commit-messages:
+    type: boolean
+    description: "Show the commit messages in the notification"
+    required: false
+    default: "true"
+  uppercase-repo-name:
+    description: "Whether to display the repository name in uppercase"
+    required: false
+    default: "false"
+  enable-view-workflow:
+    type: boolean
+    description: "When enabled, adds a button to view the workflow run status directly in Teams notification"
+    required: false
+    default: "false"
+  enable-review-changes:
+    type: boolean
+    description: "When enabled, adds a button to review code changes/diffs in Teams notification"
+    required: false
+    default: "false"
+  enable-view-job:
+    type: boolean
+    description: "When enabled, adds a button to view the specific job details in Teams notification"
+    required: false
+    default: "false"
+  timezone:
+    type: string
+    description: "IANA timezone identifier (e.g., 'America/New_York', 'Europe/London') used for timestamp displays"
+    required: false
+    default: "Asia/Kolkata"
+  date-style:
+    type: string
+    description: "Date format style to use. Accepts 'full' (Wednesday, July 4, 2023), 'long' (July 4, 2023), 'medium' (Jul 4, 2023), or 'short' (7/4/23)"
+    required: false
+    default: "medium"
+  time-style:
+    type: string
+    description: "Time format style to use. Accepts 'full' (1:03:42 PM GMT+05:30), 'long' (1:03:42 PM GMT+05:30), 'medium' (1:03:42 PM), or 'short' (1:03 PM)"
+    required: false
+    default: "short"
+
+runs:
+  using: node20
+  main: dist/main/index.js
+  post: dist/post/index.js
+  post-if: "always()"

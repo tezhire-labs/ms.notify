@@ -1,0 +1,31 @@
+name: Microsoft Teams Notification
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  Notify:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      checks: read
+      pull-requests: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ms Teams Notify
+        uses: ./
+        if: always()
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
+          main-message: true
+          post-message: true
+          timezone: Asia/Kolkata
+          enable-view-workflow: true
+          enable-review-changes: true

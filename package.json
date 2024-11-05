@@ -1,0 +1,32 @@
+{
+  "name": "ms-notify",
+  "version": "1.0.0",
+  "description": "Microsoft Notificatio from GitHub Action",
+  "main": "index.js",
+  "scripts": {
+    "build": "ncc build src/index.js -m -o dist/main --license licenses.txt && ncc build src/post.js -m -o dist/post --license licenses.txt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tezhire-labs/ms-notify.git"
+  },
+  "keywords": [
+    "GitHub",
+    "Actions",
+    "ms-notify",
+    "MS-NOTIFY"
+  ],
+  "author": "Satya Tulasi Jalandhar C H",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tezhire-labs/ms-notify/issues"
+  },
+  "homepage": "https://github.com/tezhire-labs/ms-notify#readme",
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.0",
+    "@octokit/rest": "^21.0.2",
+    "@vercel/ncc": "^0.38.2",
+    "node-fetch": "^3.3.2"
+  }
+}
