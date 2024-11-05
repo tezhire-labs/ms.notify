@@ -18,6 +18,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Get Commit Message
+        id: get-commit-message
+        run: echo "commit-message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
+
       - name: Ms Teams Notify
         uses: ./
         if: always()
