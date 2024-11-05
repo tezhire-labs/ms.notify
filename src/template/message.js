@@ -78,7 +78,7 @@ async function getMessage(isPost = false) {
         }
 
         // Show Commit Message
-        if (core.getInput('show-commit-messages', { required: false }).toLowerCase() === 'true') {
+        if (core.getInput('show-commit-message', { required: false }).toLowerCase() === 'true') {
             facts.push(new Fact("Commit Message:", commitMessage));
         }
 

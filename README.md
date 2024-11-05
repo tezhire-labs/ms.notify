@@ -36,7 +36,7 @@ MS Notify is a GitHub Action that sends notifications to Microsoft Teams.
 | `show-job`             | Display job information              | `true`  |
 | `show-start-time`      | Display start time                   | `true`  |
 | `show-end-time`        | Display end time                     | `true`  |
-| `show-commit-messages` | Display commit messages              | `true`  |
+| `show-commit-message`  | Display commit message               | `true`  |
 | `uppercase-repo-name`  | Convert repository name to uppercase | `false` |
 
 ### Action Buttons

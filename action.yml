@@ -58,9 +58,9 @@ inputs:
     description: "Show the end time in the notification"
     required: false
     default: "true"
-  show-commit-messages:
+  show-commit-message:
     type: boolean
-    description: "Show the commit messages in the notification"
+    description: "Show the commit message in the notification"
     required: false
     default: "true"
   uppercase-repo-name:

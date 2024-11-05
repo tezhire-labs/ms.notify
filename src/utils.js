@@ -51,6 +51,8 @@ async function getWorkflowRun(isPost = false) {
     // Get the current commit message
     const commitMessage = workflowRun.data.head_commit.message;
 
+    console.log("Commit Message:", commitMessage);
+
     return {
       workflow: workflowRun.data,
       conclusion,
