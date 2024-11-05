@@ -46,7 +46,7 @@ async function getWorkflowRun(isPost = false) {
     const steps = currentJob.steps;
     const conclusion = getCurrentWorkflowConclusion(steps, isPost);
 
-    // console.log("Conclusion:", conclusion);
+    console.log("Conclusion:", conclusion);
 
     // Get the current commit message and ensure it exists
     const commitMessage = workflowRun.data.head_commit?.message || 'No commit message found';
