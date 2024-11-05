@@ -23,11 +23,6 @@ async function getWorkflowRun(isPost = false) {
     });
 
     // console.log("Workflow Run Data:", workflowRun.data);
-    
-    // Get the current commit message
-    const commitMessage = workflowRun.data.head_commit.message;
-
-    console.log("Commit Message:", commitMessage);
 
     // Get Workflow Jobs for the current run
     const workflowJobs = await octokit.rest.actions.listJobsForWorkflowRun({

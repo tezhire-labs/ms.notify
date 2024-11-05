@@ -29,4 +29,3 @@ jobs:
           timezone: Asia/Kolkata
           enable-view-workflow: true
           enable-review-changes: true
-          debug: true

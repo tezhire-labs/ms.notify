@@ -9,8 +9,7 @@ async function getMessage(isPost = false) {
         // Get workflow run details
         const {
             workflow,
-            job,
-            commitMessage
+            job
         } = await getWorkflowRun(isPost);
 
         if (!workflow || !workflow.head_repository) {
@@ -29,6 +28,7 @@ async function getMessage(isPost = false) {
             : repoName;
         const actor_name = `\`${workflow.head_commit.author.name}\``;
         const event = `\`${workflow.event.toUpperCase()}\``;
+        const commitMessage = `\`${workflow.head_commit.message}\``;
         const status = `\`${getCurrentWorkflowConclusion(job.steps, isPost).toUpperCase()}\``;
         const commitUrl = `${repoUrl}/commit/${workflow.head_sha}`;
         const workflowUrl = `${repoUrl}/actions/runs/${workflow.id}`;
@@ -37,7 +37,6 @@ async function getMessage(isPost = false) {
         section.activityTitle = `**${workflow.name} [#${workflow.run_number}](${workflowUrl}) ([${workflow.head_sha.slice(0, 7)}](${commitUrl}))**`;
         section.activitySubtitle = `on [${repoNameDisplay}](${repoUrl})`;
         section.activityImage = workflow.actor.avatar_url;
-
         const { startDate, endDate } = convertToTimeZones(job);
         const facts = [];
 
